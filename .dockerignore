@@ -1,0 +1,29 @@
+# Version control / tooling
+.git
+.gitignore
+.claude/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Local app data & logs (ephemeral; should not ship in the image)
+saved_chits.json
+streamlit_out.log
+streamlit_err.log
+.streamlit/
+
+# Tests are not needed in the runtime image
+test_chit_engine.py
+
+# OS
+.DS_Store
+Thumbs.db
