@@ -1,10 +1,15 @@
-# Railway deployment config. Tells Railway to build from the Dockerfile
-# (so the Tesseract system package gets installed) and how to start the app.
+# Railway deployment config. Build from the Dockerfile so the Tesseract
+# system package gets installed.
+#
+# NOTE: We deliberately do NOT set `startCommand` here. Railway passes a
+# railway.toml startCommand to the container WITHOUT shell expansion, so a
+# literal `$PORT` reaches Streamlit and it crashes ("'$PORT' is not a valid
+# integer"). Instead we rely on the Dockerfile's shell-form CMD, which runs
+# via `/bin/sh -c` and expands $PORT correctly at runtime.
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "streamlit run app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --browser.gatherUsageStats=false"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
